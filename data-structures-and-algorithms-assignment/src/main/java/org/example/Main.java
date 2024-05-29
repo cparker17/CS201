@@ -1,5 +1,6 @@
 package org.example;
 
+import java.security.KeyStore;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -23,19 +24,24 @@ public class Main {
                         "Columbus", "Oklahoma City", "Salem", "Harrisburg", "Providence", "Columbia", "Pierre", "Nashville",
                         "Austin", "Salt Lake City", "Montpelier", "Richmond", "Olympia", "Charleston", "Madison", "Cheyenne" }};
 
-        bubbleSortTwoDimensionalArrayBySecondRow(stateAndCapitals);
-        displayTwoDimensionalArrayData(stateAndCapitals);
-        promptUserForCapitalsForEachState(stateAndCapitals);
+//        bubbleSortTwoDimensionalArrayBySecondRow(stateAndCapitals);
+//        displayTwoDimensionalArrayData(stateAndCapitals);
+//        promptUserForCapitalsForEachState(stateAndCapitals);
 
         //PART 2: SORTING & SEARCHING HASHMAP
         Map<String, String> stateAndCapitalsMap = new HashMap<>();
-
+        for (int i = 0; i < stateAndCapitals[0].length; i++) {
+            stateAndCapitalsMap.put(stateAndCapitals[0][i], stateAndCapitals[1][i]);
+        }
+        for (Map.Entry entry : stateAndCapitalsMap.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
     }
 
     private static void bubbleSortTwoDimensionalArrayBySecondRow(String[][] array) {
         String secondRowTempValue, firstRowTempValue;
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array.length - 1; j++) {
+        for (int i = 0; i < array[0].length; i++) {
+            for (int j = 0; j < array[0].length - 1; j++) {
                 if (array[1][j].compareToIgnoreCase(array[1][j + 1]) > 0) {
                     secondRowTempValue = array[1][j];
                     array[1][j] = array[1][j + 1];
@@ -49,7 +55,7 @@ public class Main {
     }
 
     private static void displayTwoDimensionalArrayData(String[][] array) {
-        for (int i = 0; i < array.length; i++) {
+        for (int i = 0; i < array[0].length; i++) {
             System.out.println(array[0][i] + ": " + array[1][i]);
         }
     }
@@ -59,7 +65,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String userInput;
         int correctCapitalNameCounter = 0;
-        for (int i = 0; i < array.length; i++) {
+        for (int i = 0; i < array[0].length; i++) {
             System.out.println(array[0][i] + ": ");
             userInput = scanner.nextLine();
             if (userInput.compareToIgnoreCase(array[1][i]) == 0) {
