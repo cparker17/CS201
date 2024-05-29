@@ -1,15 +1,15 @@
 package org.example;
 
-import java.security.KeyStore;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class Main {
     public static void main(String[] args) {
 
-        //PART 1: SORTING ARRAYS
-        String[][] stateAndCapitals = {
+        //INITIAL STATE & CAPITAL DATE SORTED BY STATE IN A 2-DIMENSIONAL ARRAY
+        String[][] stateAndCapitalsArray = {
                 {"Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
                         "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
                         "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
@@ -24,18 +24,35 @@ public class Main {
                         "Columbus", "Oklahoma City", "Salem", "Harrisburg", "Providence", "Columbia", "Pierre", "Nashville",
                         "Austin", "Salt Lake City", "Montpelier", "Richmond", "Olympia", "Charleston", "Madison", "Cheyenne" }};
 
-//        bubbleSortTwoDimensionalArrayBySecondRow(stateAndCapitals);
-//        displayTwoDimensionalArrayData(stateAndCapitals);
-//        promptUserForCapitalsForEachState(stateAndCapitals);
+        //PART 1: SORTING ARRAYS
+        bubbleSortTwoDimensionalArrayBySecondRow(stateAndCapitalsArray);
+        displayTwoDimensionalArrayData(stateAndCapitalsArray);
+        promptUserForCapitalsForEachState(stateAndCapitalsArray);
 
         //PART 2: SORTING & SEARCHING HASHMAP
+
+        //CREATE AND POPULATE A HASHMAP WITH THE STATE & CAPITAL DATA
         Map<String, String> stateAndCapitalsMap = new HashMap<>();
-        for (int i = 0; i < stateAndCapitals[0].length; i++) {
-            stateAndCapitalsMap.put(stateAndCapitals[0][i], stateAndCapitals[1][i]);
+        for (int i = 0; i < stateAndCapitalsArray[0].length; i++) {
+            stateAndCapitalsMap.put(stateAndCapitalsArray[0][i], stateAndCapitalsArray[1][i]);
         }
+
+        //DISPLAY EACH KEY/VALUE PAIR IN THE HASHMAP
         for (Map.Entry entry : stateAndCapitalsMap.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
+
+        //CREATE A TREEMAP AND LOAD THE DATA FROM THE STATE/CAPITAL HASHMAP
+        TreeMap<String, String> stateAndCapitalsTreeMap = new TreeMap<>(stateAndCapitalsMap);
+        for (Map.Entry entry : stateAndCapitalsTreeMap.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+
+        //PROMPT USER FOR STATE AND DISPLAY VALUE
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the name of a state to see the capital: ");
+        String userInput = scanner.nextLine();
+        System.out.println("The capital of " + userInput + " is " + stateAndCapitalsTreeMap.get(userInput) + ".");
     }
 
     private static void bubbleSortTwoDimensionalArrayBySecondRow(String[][] array) {
@@ -61,10 +78,14 @@ public class Main {
     }
 
     private static void promptUserForCapitalsForEachState(String[][] array) {
+        //DISPLAY DIRECTIONS TO USER
         System.out.println("Enter the name of the capital for each state:\n");
+
         Scanner scanner = new Scanner(System.in);
         String userInput;
         int correctCapitalNameCounter = 0;
+
+        //LOOP THROUGH ARRAY TO OUTPUT EACH STATE AND GET INPUT FROM USER FOR CAPITAL NAME
         for (int i = 0; i < array[0].length; i++) {
             System.out.println(array[0][i] + ": ");
             userInput = scanner.nextLine();
@@ -72,6 +93,8 @@ public class Main {
                 correctCapitalNameCounter++;
             }
         }
+
+        //DISPLAY HOW MANY CAPITALS WERE ENTERED CORRECTLY
         System.out.println("\n   Total Correct Count = " + correctCapitalNameCounter);
     }
 }
